@@ -15,6 +15,25 @@
       <value name="X-Large" display-name-key="XLarge" description-key="XLarge_Desc">x-large</value>
       <value name="XX-Large" display-name-key="XXLarge" description-key="XXLarge_Desc">xx-large</value>
     </property>
+    <property name="Font" display-name-key="Font" description-key="Font_Desc" of-type="Enum" usage="bound" required="true">
+      <value name="Arial" display-name-key="Arial" description-key="Arial_Desc">Arial</value>
+      <value name="Courier_New" display-name-key="CourierNew" description-key="CourierNew_Desc">Courier New</value>
+      <value name="Dancing_Script" display-name-key="DancingScript" description-key="DancingScript_Desc">Dancing Script</value>
+      <value name="Georgia" display-name-key="Georgia" description-key="Georgia_Desc">Georgia</value>
+      <value name="Great_Vibes" display-name-key="GreatVibes" description-key="GreatVibes_Desc">Great Vibes</value>
+      <value name="Lato" display-name-key="Lato" description-key="Lato_Desc">Lato</value>
+      <value name="Lato_Black" display-name-key="LatoBlack" description-key="LatoBlack_Desc">Lato Black</value>
+      <value name="Lato_Hairline" display-name-key="LatoHairline" description-key="LatoHairline_Desc">Lato Hairline</value>
+      <value name="Lato_Light" display-name-key="LatoLight" description-key="LatoLight_Desc">Lato Light</value>
+      <value name="Open_Sans" display-name-key="OpenSans" description-key="OpenSans_Desc">Open Sans</value>
+      <value name="Open_Sans_Condensed" display-name-key="OpenSansCondensed" description-key="OpenSansCondensed_Desc">Open Sans Condensed</value>
+      <value name="Patrick_Hand" display-name-key="PatrickHand" description-key="PatrickHand_Desc">Patrick Hand</value>
+      <value name="Segoe_UI" display-name-key="SegoeUI" description-key="SegoeUI_Desc">Segoe UI</value>
+      <value name="Verdana" display-name-key="Verdana" description-key="Verdana_Desc">Verdana</value>
+      <value name="Custom" display-name-key="Custom" description-key="Custom_Desc">custom</value>
+    </property>
+
+    <property name="FontCustom" display-name-key="FontCustom" description-key="FontCustom_Desc" of-type="Multiple" usage="bound" required="false" />
     <property name="Overflow" display-name-key="Overflow" description-key="Overflow_Desc" of-type="Enum" usage="bound" required="true">
       <value name="None" display-name-key="None" description-key="None_Desc">none</value>
       <value name="Auto" display-name-key="Auto" description-key="Auto_Desc">auto</value>

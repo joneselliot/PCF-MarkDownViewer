@@ -9,6 +9,7 @@ export class MarkDownViewer implements ComponentFramework.StandardControl<IInput
 	private props: IMarkdownViewerProps = {
 		content:  "# This is a header\n\nAnd this is a paragraph\n\n* Item 1\n* Item 2\n\n**Code Example** (PowerShell):\n\n```PowerShell\nGet-ChildItem -Path \"C:\\Temp\" -Filter \"*.txt\" -Recurse\n```\n",
 		fontSize: "Initial",
+		fontFamily: "Segoe UI",
 		overflow: "None"
 	}
 
@@ -39,6 +40,14 @@ export class MarkDownViewer implements ComponentFramework.StandardControl<IInput
 		this.notifyOutputChanged = notifyOutputChanged;
 		this.props.content  = context.parameters.Content.raw  || this.props.content;
 		this.props.fontSize = context.parameters.FontSize.raw || this.props.fontSize;
+		// Font handling: use selected enum unless value is 'custom', in which case use FontCustom
+		const fontRaw = context.parameters.Font?.raw;
+		const fontCustomRaw = context.parameters.FontCustom?.raw;
+		if (fontRaw && fontRaw.toString().toLowerCase() === 'custom') {
+			this.props.fontFamily = fontCustomRaw || this.props.fontFamily;
+		} else {
+			this.props.fontFamily = fontRaw || this.props.fontFamily;
+		}
 		this.props.overflow = context.parameters.Overflow.raw || this.props.overflow;
 	}
 
@@ -53,6 +62,13 @@ export class MarkDownViewer implements ComponentFramework.StandardControl<IInput
 		const hasChangedContent = context.parameters.Content.raw !== this.props.content;
 		this.props.content   = context.parameters.Content.raw  || this.props.content;
 		this.props.fontSize  = context.parameters.FontSize.raw || this.props.fontSize;
+		const fontRaw = context.parameters.Font?.raw;
+		const fontCustomRaw = context.parameters.FontCustom?.raw;
+		if (fontRaw && fontRaw.toString().toLowerCase() === 'custom') {
+			this.props.fontFamily = fontCustomRaw || this.props.fontFamily;
+		} else {
+			this.props.fontFamily = fontRaw || this.props.fontFamily;
+		}
 		this.props.overflow  = context.parameters.Overflow.raw || this.props.overflow;
 		try {
 			this.props.maxHeight = context?.mode?.allocatedHeight > 0 ? context.mode.allocatedHeight + "px" : "400px";

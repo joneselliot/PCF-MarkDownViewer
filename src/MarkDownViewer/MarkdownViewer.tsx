@@ -6,6 +6,7 @@ import MarkdownPreview from '@uiw/react-markdown-preview';
 export interface IMarkdownViewerProps {
     content?:   string | undefined
     fontSize?:  string | undefined
+    fontFamily?: string | undefined
     overflow?:  string | undefined
     maxHeight?: string | undefined
     maxWidth?:  string | undefined
@@ -21,6 +22,7 @@ export default class MarkdownViewer extends React.Component<IMarkdownViewerProps
                 overflow:  this.props.overflow  || "auto",
                 textAlign: "left",
                 fontSize:  this.props.fontSize  || "initial",
+                fontFamily: this.props.fontFamily || "inherit",
                 height:    this.props.maxHeight || "initial",
                 width:     this.props.maxWidth  || "initial",
                 maxHeight: this.props.maxHeight || "none",
