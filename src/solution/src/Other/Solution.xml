@@ -22,7 +22,7 @@
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
       <!-- Customization Prefix for the Cds Publisher-->
-      <CustomizationPrefix>psba-pcf</CustomizationPrefix>
+      <CustomizationPrefix>psba</CustomizationPrefix>
       <!-- Derived Option Value Prefix for the Customization Prefix of Cds Publisher -->
       <CustomizationOptionValuePrefix>62249</CustomizationOptionValuePrefix>
       <Addresses>
