@@ -2,10 +2,10 @@
 <ImportExportXml version="9.1.0.643" SolutionPackageVersion="9.1" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SolutionManifest>
     <!-- Unique Name of Cds Solution-->
-    <UniqueName>mme2k_markdownviewer</UniqueName>
+    <UniqueName>psba_pcf_markdownviewer</UniqueName>
     <LocalizedNames>
       <!-- Localized Solution Name in language code -->
-      <LocalizedName description="Mark Down Viewer" languagecode="1033" />
+      <LocalizedName description="Markdown Viewer" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
     <Version>1.9</Version>
@@ -13,16 +13,16 @@
     <Managed>2</Managed>
     <Publisher>
       <!-- Unique Publisher Name of Cds Solution -->
-      <UniqueName>megel</UniqueName>
+      <UniqueName>psba</UniqueName>
       <LocalizedNames>
         <!-- Localized Cds Publisher Name in language code-->
-        <LocalizedName description="Michael Megel" languagecode="1033" />
+        <LocalizedName description="PSBA" languagecode="1033" />
       </LocalizedNames>
       <Descriptions />
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
       <!-- Customization Prefix for the Cds Publisher-->
-      <CustomizationPrefix>mme2k</CustomizationPrefix>
+      <CustomizationPrefix>psba-pcf</CustomizationPrefix>
       <!-- Derived Option Value Prefix for the Customization Prefix of Cds Publisher -->
       <CustomizationOptionValuePrefix>62249</CustomizationOptionValuePrefix>
       <Addresses>
