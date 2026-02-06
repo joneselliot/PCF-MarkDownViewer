@@ -7,6 +7,8 @@ export interface IMarkdownViewerProps {
     content?:   string | undefined
     fontSize?:  number | undefined
     fontFamily?: string | undefined
+    fontColor?: string | undefined
+    fill?:      string | undefined
     overflow?:  string | undefined
     maxHeight?: string | undefined
     maxWidth?:  string | undefined
@@ -23,13 +25,15 @@ export default class MarkdownViewer extends React.Component<IMarkdownViewerProps
                 textAlign: "left",
                 fontSize:  this.props.fontSize ? `${this.props.fontSize}px` : "16px",
                 fontFamily: this.props.fontFamily || "inherit",
+                color:     this.props.fontColor || "inherit",
+                backgroundColor: this.props.fill || "transparent",
                 height:    this.props.maxHeight || "initial",
                 width:     this.props.maxWidth  || "initial",
                 maxHeight: this.props.maxHeight || "none",
                 maxWidth:  this.props.maxWidth  || "none",
                 userSelect: "text"
                 }}>
-                <div id="mdViewer" style={{ fontFamily: this.props.fontFamily || "inherit", fontSize: this.props.fontSize ? `${this.props.fontSize}px` : "16px" }}>
+                <div id="mdViewer" style={{ fontFamily: this.props.fontFamily || "inherit", fontSize: this.props.fontSize ? `${this.props.fontSize}px` : "16px", color: this.props.fontColor || "inherit" }}>
                     <div className="wmde-markdown-var"> </div>
                     <MarkdownPreview
                         id="mdMarkDown"
@@ -37,7 +41,8 @@ export default class MarkdownViewer extends React.Component<IMarkdownViewerProps
                         style={{
                             background: "transparent",
                             fontFamily: this.props.fontFamily || "inherit",
-                            fontSize: this.props.fontSize ? `${this.props.fontSize}px` : "16px"
+                            fontSize: this.props.fontSize ? `${this.props.fontSize}px` : "16px",
+                            color: this.props.fontColor || "inherit"
                         }}
                         rehypeRewrite={(node: any, index: any, parent: any) => {
                             if (node.tagName === "a" && parent && /^h(1|2|3|4|5|6)/.test(parent.tagName)) {

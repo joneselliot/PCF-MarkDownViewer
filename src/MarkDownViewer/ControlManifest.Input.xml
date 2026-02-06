@@ -22,6 +22,9 @@
       <value name="Custom" display-name-key="Custom" description-key="Custom_Desc">custom</value>
     </property>
 
+    <property name="FontColor" display-name-key="FontColor" description-key="FontColor_Desc" of-type="SingleLine.Text" usage="bound" required="false" />
+    <property name="Fill" display-name-key="Fill" description-key="Fill_Desc" of-type="SingleLine.Text" usage="bound" required="false" />
+
     <property name="Overflow" display-name-key="Overflow" description-key="Overflow_Desc" of-type="Enum" usage="bound" required="true">
       <value name="None" display-name-key="None" description-key="None_Desc">none</value>
       <value name="Auto" display-name-key="Auto" description-key="Auto_Desc">auto</value>
