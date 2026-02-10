@@ -6,13 +6,14 @@ import MarkdownViewer, { IMarkdownViewerProps } from './MarkdownViewer';
 export class MarkDownViewer implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
 	private mContainer: HTMLDivElement;
-	private props: IMarkdownViewerProps = {
+	private readonly defaults: Required<Pick<IMarkdownViewerProps, "content" | "fontSize" | "fontFamily" | "fill" | "overflow">> = {
 		content:  "# This is a header\n\nAnd this is a paragraph\n\n* Item 1\n* Item 2\n\n**Code Example** (PowerShell):\n\n```PowerShell\nGet-ChildItem -Path \"C:\\Temp\" -Filter \"*.txt\" -Recurse\n```\n",
 		fontSize: 16,
 		fontFamily: "Segoe UI",
 		fill: "#FFFFFF",
 		overflow: "None"
-	}
+	};
+	private props: IMarkdownViewerProps = { ...this.defaults };
 
 	private _outputs: IOutputs = {
     };
@@ -39,11 +40,11 @@ export class MarkDownViewer implements ComponentFramework.StandardControl<IInput
 		this.mContainer = container;
 		context.mode.trackContainerResize(true);
 		this.notifyOutputChanged = notifyOutputChanged;
-		this.props.content  = context.parameters.Content.raw  || this.props.content;
-		this.props.fontSize = context.parameters.FontSize?.raw !== null && context.parameters.FontSize?.raw !== undefined ? context.parameters.FontSize?.raw : this.props.fontSize;
-		this.props.fontFamily = context.parameters.Font?.raw || this.props.fontFamily;
-		this.props.fill = context.parameters.SurfaceValue?.raw || this.props.fill;
-		this.props.overflow = context.parameters.Overflow?.raw || this.props.overflow;
+		this.props.content  = this.coalesceBoundValue(context.parameters.Content.raw, this.defaults.content);
+		this.props.fontSize = this.coalesceBoundValue(context.parameters.FontSize?.raw, this.defaults.fontSize);
+		this.props.fontFamily = this.coalesceBoundValue(context.parameters.Font?.raw, this.defaults.fontFamily);
+		this.props.fill = this.coalesceBoundValue(context.parameters.SurfaceValue?.raw, this.defaults.fill);
+		this.props.overflow = this.coalesceBoundValue(context.parameters.Overflow?.raw, this.defaults.overflow);
 	}
 
 
@@ -54,12 +55,13 @@ export class MarkDownViewer implements ComponentFramework.StandardControl<IInput
 	public updateView(context: ComponentFramework.Context<IInputs>): void
 	{
 		// Add code to update control view
-		const hasChangedContent = context.parameters.Content.raw !== this.props.content;
-		this.props.content   = context.parameters.Content.raw  || this.props.content;
-		this.props.fontSize  = context.parameters.FontSize?.raw !== null && context.parameters.FontSize?.raw !== undefined ? context.parameters.FontSize?.raw : this.props.fontSize;
-		this.props.fontFamily = context.parameters.Font?.raw || this.props.fontFamily;
-		this.props.fill = context.parameters.SurfaceValue?.raw || this.props.fill;
-		this.props.overflow  = context.parameters.Overflow?.raw || this.props.overflow;
+		const nextContent = this.coalesceBoundValue(context.parameters.Content.raw, this.defaults.content);
+		const hasChangedContent = nextContent !== this.props.content;
+		this.props.content = nextContent;
+		this.props.fontSize  = this.coalesceBoundValue(context.parameters.FontSize?.raw, this.defaults.fontSize);
+		this.props.fontFamily = this.coalesceBoundValue(context.parameters.Font?.raw, this.defaults.fontFamily);
+		this.props.fill = this.coalesceBoundValue(context.parameters.SurfaceValue?.raw, this.defaults.fill);
+		this.props.overflow  = this.coalesceBoundValue(context.parameters.Overflow?.raw, this.defaults.overflow);
 		try {
 			this.props.maxHeight = context?.mode?.allocatedHeight > 0 ? context.mode.allocatedHeight + "px" : "400px";
 			this.props.maxWidth  = context?.mode?.allocatedWidth  > 0 ? context.mode.allocatedWidth  + "px" : "800px";
@@ -123,5 +125,9 @@ export class MarkDownViewer implements ComponentFramework.StandardControl<IInput
 	public getHtmlContent(): string {
 		// Get the HTML content from node with class wmde-markdown
 		return document.querySelector(".wmde-markdown")?.innerHTML ?? "";
+	}
+
+	private coalesceBoundValue<T>(value: T | null | undefined, fallback: T): T {
+		return value === null || value === undefined ? fallback : value;
 	}
 }

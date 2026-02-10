@@ -13,6 +13,20 @@ export interface IMarkdownViewerProps {
     maxWidth?:  string | undefined
 }
 
+type MarkdownPalette = {
+    codeBlockBackground: string;
+    codeBlockText: string;
+    codeBorder: string;
+    codeShadow: string;
+    inlineCodeBackground: string;
+    inlineCodeText: string;
+    tableBackground: string;
+    tableBorder: string;
+    tableHeaderBackground: string;
+    tableHeaderText: string;
+    tableRowEvenBackground: string;
+};
+
 export default class MarkdownViewer extends React.Component<IMarkdownViewerProps> {
     content?: string | undefined
     private readonly rootClassName = "md-viewer-root";
@@ -24,14 +38,66 @@ export default class MarkdownViewer extends React.Component<IMarkdownViewerProps
         const headingSelectors = "h1, h2, h3, h4, h5, h6";
         const textSelectors = "p, ul, ol, li, span, strong, em, table, th, td, dl, dt, dd, a, a:visited, a:active";
         const foreground = this.getAccessibleTextColor();
+        const palette = this.getMarkdownPalette();
         const dynamicTypographyStyles = `
             .${this.rootClassName} ${textSelectors},
             .${this.rootClassName} ${headingSelectors} {
                 color: ${foreground};
             }
 
-            .${this.rootClassName} :is(pre, code, blockquote, mark, kbd) {
-                color: revert;
+            .${this.rootClassName} pre {
+                background: ${palette.codeBlockBackground};
+                color: ${palette.codeBlockText};
+                font-family: 'Cascadia Code', 'Fira Code', 'Consolas', 'SFMono-Regular', 'Menlo', monospace;
+                padding: 12px 16px;
+                border-radius: 8px;
+                border: 1px solid ${palette.codeBorder};
+                overflow-x: auto;
+                box-shadow: 0 4px 18px ${palette.codeShadow};
+                margin: 16px 0;
+            }
+
+            .${this.rootClassName} pre code {
+                color: inherit;
+                background: transparent;
+                padding: 0;
+            }
+
+            .${this.rootClassName} code:not(pre code) {
+                background: ${palette.inlineCodeBackground};
+                color: ${palette.inlineCodeText};
+                border-radius: 4px;
+                padding: 2px 6px;
+                border: 1px solid ${palette.codeBorder};
+                font-family: 'Cascadia Code', 'Fira Code', 'Consolas', 'SFMono-Regular', 'Menlo', monospace;
+            }
+
+            .${this.rootClassName} table {
+                width: 100%;
+                border-collapse: collapse;
+                background: ${palette.tableBackground};
+                border: 1px solid ${palette.tableBorder};
+                margin: 16px 0;
+                border-radius: 6px;
+                overflow: hidden;
+            }
+
+            .${this.rootClassName} th {
+                background: ${palette.tableHeaderBackground};
+                color: ${palette.tableHeaderText};
+                border: 1px solid ${palette.tableBorder};
+                padding: 10px 12px;
+                text-align: left;
+                font-weight: 600;
+            }
+
+            .${this.rootClassName} td {
+                border: 1px solid ${palette.tableBorder};
+                padding: 10px 12px;
+            }
+
+            .${this.rootClassName} tr:nth-child(even) td {
+                background: ${palette.tableRowEvenBackground};
             }
         `;
 
@@ -78,6 +144,41 @@ export default class MarkdownViewer extends React.Component<IMarkdownViewerProps
         }
 
         return luminance > 0.55 ? this.darkText : this.lightText;
+    }
+
+    private getMarkdownPalette(): MarkdownPalette {
+        const luminance = this.getRelativeLuminance(this.props.fill);
+        const isLightSurface = luminance === undefined ? true : luminance > 0.55;
+
+        if (isLightSurface) {
+            return {
+                codeBlockBackground: "#0f172a",
+                codeBlockText: "#f8fafc",
+                codeBorder: "#1e293b",
+                codeShadow: "rgba(15,23,42,0.35)",
+                inlineCodeBackground: "#e2e8f0",
+                inlineCodeText: "#0f172a",
+                tableBackground: "#ffffff",
+                tableBorder: "#cbd5e1",
+                tableHeaderBackground: "#e2e8f0",
+                tableHeaderText: "#0f172a",
+                tableRowEvenBackground: "#f8fafc"
+            };
+        }
+
+        return {
+            codeBlockBackground: "#111827",
+            codeBlockText: "#f4f8ff",
+            codeBorder: "#273449",
+            codeShadow: "rgba(0,0,0,0.55)",
+            inlineCodeBackground: "#1f2a3d",
+            inlineCodeText: "#fef9c3",
+            tableBackground: "#0f172a",
+            tableBorder: "#24324a",
+            tableHeaderBackground: "#1e293b",
+            tableHeaderText: "#f1f5f9",
+            tableRowEvenBackground: "#14233c"
+        };
     }
 
     private getRelativeLuminance(color?: string): number | undefined {
