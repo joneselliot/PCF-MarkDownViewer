@@ -10,7 +10,6 @@ export class MarkDownViewer implements ComponentFramework.StandardControl<IInput
 		content:  "# This is a header\n\nAnd this is a paragraph\n\n* Item 1\n* Item 2\n\n**Code Example** (PowerShell):\n\n```PowerShell\nGet-ChildItem -Path \"C:\\Temp\" -Filter \"*.txt\" -Recurse\n```\n",
 		fontSize: 16,
 		fontFamily: "Segoe UI",
-		fontColor: "#000000",
 		fill: "#FFFFFF",
 		overflow: "None"
 	}
@@ -41,11 +40,10 @@ export class MarkDownViewer implements ComponentFramework.StandardControl<IInput
 		context.mode.trackContainerResize(true);
 		this.notifyOutputChanged = notifyOutputChanged;
 		this.props.content  = context.parameters.Content.raw  || this.props.content;
-		this.props.fontSize = context.parameters.FontSize.raw !== null && context.parameters.FontSize.raw !== undefined ? context.parameters.FontSize.raw : this.props.fontSize;
-		this.props.fontFamily = context.parameters.Font.raw || this.props.fontFamily;
-		this.props.fontColor = context.parameters.FontColor.raw || this.props.fontColor;
-		this.props.fill = context.parameters.Fill.raw || this.props.fill;
-		this.props.overflow = context.parameters.Overflow.raw || this.props.overflow;
+		this.props.fontSize = context.parameters.FontSize?.raw !== null && context.parameters.FontSize?.raw !== undefined ? context.parameters.FontSize?.raw : this.props.fontSize;
+		this.props.fontFamily = context.parameters.Font?.raw || this.props.fontFamily;
+		this.props.fill = context.parameters.SurfaceValue?.raw || this.props.fill;
+		this.props.overflow = context.parameters.Overflow?.raw || this.props.overflow;
 	}
 
 
@@ -58,11 +56,10 @@ export class MarkDownViewer implements ComponentFramework.StandardControl<IInput
 		// Add code to update control view
 		const hasChangedContent = context.parameters.Content.raw !== this.props.content;
 		this.props.content   = context.parameters.Content.raw  || this.props.content;
-		this.props.fontSize  = context.parameters.FontSize.raw !== null && context.parameters.FontSize.raw !== undefined ? context.parameters.FontSize.raw : this.props.fontSize;
-		this.props.fontFamily = context.parameters.Font.raw || this.props.fontFamily;
-		this.props.fontColor = context.parameters.FontColor.raw || this.props.fontColor;
-		this.props.fill = context.parameters.Fill.raw || this.props.fill;
-		this.props.overflow  = context.parameters.Overflow.raw || this.props.overflow;
+		this.props.fontSize  = context.parameters.FontSize?.raw !== null && context.parameters.FontSize?.raw !== undefined ? context.parameters.FontSize?.raw : this.props.fontSize;
+		this.props.fontFamily = context.parameters.Font?.raw || this.props.fontFamily;
+		this.props.fill = context.parameters.SurfaceValue?.raw || this.props.fill;
+		this.props.overflow  = context.parameters.Overflow?.raw || this.props.overflow;
 		try {
 			this.props.maxHeight = context?.mode?.allocatedHeight > 0 ? context.mode.allocatedHeight + "px" : "400px";
 			this.props.maxWidth  = context?.mode?.allocatedWidth  > 0 ? context.mode.allocatedWidth  + "px" : "800px";

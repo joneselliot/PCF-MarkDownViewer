@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="MDViewerPCF" constructor="MarkDownViewer" version="1.3.1" display-name-key="MarkdownViewer" description-key="MarkDownViewer_Desc" control-type="standard">
+  <control namespace="MDViewerPCF" constructor="MarkDownViewer" version="1.3.4" display-name-key="MarkdownViewer" description-key="MarkDownViewer_Desc" control-type="standard">
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
     <property name="Content" display-name-key="Content" description-key="Content_Desc" of-type="Multiple" usage="bound" required="true"/>
     <property name="FontSize" display-name-key="Size" description-key="Size_Desc" of-type="Whole.None" usage="bound" required="false"/>
@@ -22,8 +22,7 @@
       <value name="Custom" display-name-key="Custom" description-key="Custom_Desc">custom</value>
     </property>
 
-    <property name="FontColor" display-name-key="FontColor" description-key="FontColor_Desc" of-type="SingleLine.Text" usage="bound" required="false" />
-    <property name="Fill" display-name-key="Fill" description-key="Fill_Desc" of-type="SingleLine.Text" usage="bound" required="false" />
+    <property name="SurfaceValue" display-name-key="SurfaceValue" description-key="SurfaceValue_Desc" of-type="SingleLine.Text" usage="bound" required="false" />
 
     <property name="Overflow" display-name-key="Overflow" description-key="Overflow_Desc" of-type="Enum" usage="bound" required="false">
       <value name="None" display-name-key="None" description-key="None_Desc">none</value>
